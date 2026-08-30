@@ -22,6 +22,10 @@ def insert_at(lst, index, value):
     - Use comments to explain how insertion performance may vary depending on
       where the insertion occurs.
     """
+    lst.insert(index, value)
+
+    return lst
+
     pass
 
 
@@ -36,6 +40,11 @@ def delete_at(lst, index):
     - Return None if the index is invalid.
     - Add comments explaining why index validation and safe deletion are important.
     """
+    if not isinstance(index, int) or index < 0 or index >= len(lst):
+        return None
+
+    removed_value = lst.pop(index)
+    return removed_value
     pass
 
 
@@ -49,6 +58,11 @@ def search_value(lst, value):
     - Return -1 if the value is not found.
     - Add comments explaining why this is a linear search and why it scans sequentially.
     """
+    for i in range(len(lst)):
+        if lst[i] == value:
+            return i
+
+    return --1
     pass
 
 
@@ -72,6 +86,19 @@ def main():
     print("\n=== INSERTION TESTS ===")
     print("TODO: Create a list and demonstrate insertions.")
 
+    groceries = ["eggs", "milk", "bread", "butter"]
+    print(f"Original list: {groceries}")
+
+    insert_at(groceries, 0, "coffee")
+    print(f"After inserting 'coffee' at the beginning: {groceries}")
+
+    middle_index = len(groceries) // 2
+    insert_at(groceries, middle_index, "cheese")
+    print(f"After inserting 'cheese' in the middle: {groceries}")
+
+    insert_at(groceries, len(groceries), "apples")
+    print(f"After inserting 'apples' at the end: {groceries}")
+
     # ===============================
     # TODO (Student): DELETION TESTS
     # ===============================
@@ -88,6 +115,16 @@ def main():
     print("\n=== DELETION TESTS ===")
     print("TODO: Demonstrate deletions from multiple positions.")
 
+    removed = delete_at(groceries, 0)
+    print(f"Removed '{removed}' from the beginning.  List is now: {groceries}")
+
+    middle_index = len(groceries) // 2
+    removed = delete_at(groceries, middle_index)
+    print(f"Removed '{removed}' from the middle. List is now: {groceries}")
+
+    removed = delete_at(groceries, len(groceries) - 1)
+    print(f"Removed '{removed}' from the end. List is now: {groceries}")
+
     # ===============================
     # TODO (Student): SEARCH TESTS
     # ===============================
@@ -100,6 +137,16 @@ def main():
 
     print("\n=== SEARCH TESTS ===")
     print("TODO: Demonstrate searching for values.")
+
+    target = "milk"
+    result = search_value(groceries, target)
+    print(f"Searching for '{target}': found at index {result}"
+          if result != -1 else f"Searching for '{target}': not found")
+
+    target = "orange juice"
+    result = search_value(groceries, target)
+    print(f"Searching for '{target}': found at index {result}"
+          if result != -1 else f"Searching for '{target}': not found")
 
     # ===============================
     # TODO (Student): EDGE CASES
@@ -116,6 +163,16 @@ def main():
 
     print("\n=== EDGE CASES ===")
     print("TODO: Demonstrate at least two edge cases.")
+
+    invalid_result = delete_at(groceries, 99)
+    print(f"Attempting to delete index 99 (invalid): returned {invalid_result}")
+
+    empty_list = []
+    insert_at(empty_list, 0, "first item")
+    print(f"Inserting into an empty list: {empty_list}")
+
+    empty_result = delete_at([], 0)
+    print(f"Attempting to delete from an empty list: returned {empty_result}")
 
 
 
